@@ -87,6 +87,43 @@ const allBlog = async(req,res)=>{
   }
 }
 
+const editBlog = async (req, res) => {
+  try {
+    const { blogId } = req.params;
+    const { title, summary, content } = req.body;
+    
+    const edit = await blogAdded.findByIdAndUpdate(blogId, { 
+      title, 
+      summary, 
+      content 
+    }, { new: true }); // { new: true } ensures that the updated document is returned
+    
+    if (!edit) {
+      return res.status(404).json({ success: false, message: "Unable to edit the blog" });
+    } else {
+      return res.status(200).json({ success: true, message: "Updated successfully", data: edit });
+    }
+  } catch (error) {
+    return res.status(400).json({ success: false, message: "Error", error });
+  }
+};
+
+
+const delBlog = async(req,res)=>{
+  try {
+    const {blogId} = req.params;
+
+    const del = await blogAdded.deleteOne({_id:blogId});
+    if(del){
+      return res.status(200).json({sucess:true,messaege:"Deleted sucessfully"})
+    }else{
+      return res.status(404).json({sucess:false,messaege:"Unable to delete"})
+    }
+    } catch (error) {
+      return res.status(400).json({sucess:false,messaege:"err",error})
+  }
+}
+
 const userInfo = async (req, res) => {
   try {
     // console.log("hello")
@@ -111,4 +148,5 @@ const userInfo = async (req, res) => {
     return res.status(500).json({ success: false, message: "Internal server error", error: error.message });
   }
 };
-module.exports = {registerFunc,loginUser,addBlog,allBlog,userInfo}
+
+module.exports = {registerFunc,loginUser,addBlog,allBlog,userInfo,editBlog,delBlog}                  
