@@ -13,7 +13,11 @@ const User = mongoose.model("Users",userRegistration)
 const addBlog = mongoose.Schema({
     "blogTitle":{type:String,required:true},
     "blogSummary":{type:String,required:true},
-    "blogContent":{type:String, required:true}
+    "blogContent":{type:String, required:true},
+    "user": {
+        type:mongoose.Schema.Types.ObjectId,
+        ref:"Users"
+    }
 })
 
 const blogAdded = mongoose.model("Blog",addBlog)

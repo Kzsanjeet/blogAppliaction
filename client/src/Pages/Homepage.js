@@ -1,9 +1,38 @@
 import React, { useState, useEffect } from 'react';
 import Navbar from '../Components/Navbar';
+import './Homepage.css';
 
 function Homepage() {
   const [allBlogs, setAllBlogs] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [userId,setUserId] = useState(null);
+
+
+
+
+  const fetchUserInfo = async () => {
+    try {
+      const response = await fetch('http://localhost:4000/user-info', {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('blogUserToken')}`,
+        },
+      });
+  
+      const data = await response.json();
+      if(data.success){
+        
+        setUserId(data.user._id);
+      }
+      console.log(data.user._id)
+    }
+    catch (error) {
+      console.log(error);
+    }
+  }
+  useEffect(() => {
+    fetchUserInfo();
+  },[]);
+
 
   const getAllBlog = async () => {
     try {
@@ -34,20 +63,25 @@ function Homepage() {
         {loading ? (
           <p>Loading....</p>
         ) : (
-          <div>
-            <h1>Welcome to yourThoughts</h1>
-            <p>
-              yourThoughts is a platform where you can share your thoughts with the world.
-              You can create a blog, edit it, and delete it.
-              You can also view other people's blogs and share your thoughts on them.
-              yourThoughts is a platform where you can express yourself freely.
-            </p>
-            <div>
+          <div class="blog-list">
+            <div class="blog-item">
               <h2>All Blogs</h2>
               <ul>
                 {allBlogs && allBlogs.map((blog, index) => (
-                  <li key={index}>
-                    <h3>{blog.blogTitle}</h3>
+                  <li key={index} class="blog-card">
+                    <div class="blog-header">
+                      <h3>{blog.blogTitle}</h3>
+                      <div class="author-info">
+                        <p>{blog.user.firstname} {blog.user.lastname}</p>
+                        <p> {blog.user.email}</p>
+                      </div>
+                    </div>
+                    {allBlogs && blog.user._id === userId ? (
+                      <div class="blog-actions">
+                        <button class="edit-btn">Edit</button>
+                        <button class="delete-btn">Delete</button>
+                      </div>
+                    ):null}
                     <p><strong>Summary:</strong> {blog.blogSummary}</p>
                     <p><strong>Description:</strong> {blog.blogContent}</p>
                   </li>

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Navbar from '../Components/Navbar';
+import './Profilepage.css';
 
 function Profilepage() {
   // State to hold user information
@@ -16,8 +17,11 @@ function Profilepage() {
     });
 
     const data = await response.json();
-    console.log(data)
-    setUserInfo(data);
+    if(data.success){
+      
+      setUserInfo(data.user);
+    }
+    // console.log(data.user)
   }
   catch (error) {
     console.log(error);
@@ -32,17 +36,19 @@ useEffect(() => {
     <>
       <Navbar/>
       <div className="profile-page">
-      <h1>Profile</h1>
-      {userInfo ? (
-        <div className="user-info">
-          <p><strong>Name:</strong> {userInfo.name}</p>
-          <p><strong>Email:</strong> {userInfo.email}</p>
-          <p><strong>Role:</strong> {userInfo.role}</p>
-        </div>
-      ) : (
-        <p>Loading user information...</p>
-      )}
-    </div>
+        <h1>Profile</h1>
+        {userInfo && userInfo ? (
+          <div className="user-info">
+            <p><strong>Name:</strong> {userInfo.firstname}</p>
+            <p><strong>Name:</strong> {userInfo.lastname}</p>
+            <p><strong>Email:</strong> {userInfo.email}</p>
+            <p><strong>Role:</strong> {userInfo.role}</p>
+          </div>
+        ) : (
+          <p className="loading-message">Loading user information...</p>
+        )}
+      </div>
+
     </>
   );
 }
