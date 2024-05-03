@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import './Loginpage.css'
 import { Link, Navigate } from 'react-router-dom';
+import Navbar from '../Components/Navbar';
 
 const Loginpage = () => {
   const [email, setEmail] = useState('');
@@ -55,7 +56,10 @@ const Loginpage = () => {
   
 
   return (
+    <>
+    <Navbar/>
     <div className="login-page">
+      
       <h1>Login</h1>
       <form className="login-form" onSubmit={handleLogin}>
         <div className="form-group">
@@ -91,6 +95,7 @@ const Loginpage = () => {
         <button type="submit" className="login-btn">Login</button>
       </form>
     </div>
+    </>
   );
 }
 
