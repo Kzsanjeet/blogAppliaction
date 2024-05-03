@@ -7,6 +7,7 @@ function Homepage() {
   const [allBlogs, setAllBlogs] = useState([]);
   const [loading, setLoading] = useState(false);
   const [userId,setUserId] = useState(null);
+  const [userInfo, setUserInfo] = useState([]);
 
 
 
@@ -23,8 +24,9 @@ function Homepage() {
       if(data.success){
         
         setUserId(data.user._id);
+        setUserInfo(data.user);
       }
-      console.log(data.user._id)
+      // console.log(data.user._id)
     }
     catch (error) {
       console.log(error);
@@ -51,7 +53,7 @@ function Homepage() {
       setLoading(false);
     }
   };
-  console.log(allBlogs)
+  // console.log(allBlogs)
 
   useEffect(() => {
     getAllBlog();
@@ -81,17 +83,21 @@ function Homepage() {
   const redirectPage = (id) => {
     window.location.href = `specific-blog/${id}`;
   }
+  // console.log(userInfo)
 
   return (
     <div>
       <Navbar />
-      <div>
+      <div className='main-container'>
         {loading ? (
           <p>Loading....</p>
         ) : (
           <div class="blog-list">
             <div class="blog-item">
-              <h2>All Blogs</h2>
+              <div class="user-data">
+              Welcome,<p class="info"> {userInfo.firstname} {userInfo.lastname}</p>
+              </div>
+              <h3>Sort by : Recently added</h3>
               <ul>
                 {allBlogs && allBlogs.map((blog, index) => (
                   <li key={index} class="blog-card">
@@ -112,9 +118,9 @@ function Homepage() {
                         <button class="delete-btn" onClick={()=>deletePost(blog._id)}>Delete</button>
                       </div>
                     ):null}
-                    <p><strong>Summary:</strong> {blog.blogSummary}</p>
-                    <button onClick={()=>redirectPage(blog._id)}>See More</button>
-                    {/* <p><strong>Description:</strong> {blog.blogContent}</p> */}
+                    <p className='summary'> {blog.blogSummary}</p>
+                    <button  className='see-more-btn' onClick={()=>redirectPage(blog._id)}>See More</button>
+                   
                   </li>
                 ))}
               </ul>

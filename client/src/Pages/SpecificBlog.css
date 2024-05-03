@@ -1,0 +1,87 @@
+/* Styles for blog container */
+.blog-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 800px; /* Adjust as needed */
+  margin: 3rem auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #fff;
+}
+
+/* Styles for user info section */
+.user-info {
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  align-items: center;
+}
+
+.edit-btn {
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.edit-btn:hover {
+  background-color: green;
+}
+
+.delete-btn {
+  background-color: red;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-left: 1rem;
+}
+.delete-btn:hover {
+  background-color: darkred;
+}
+
+.user-info p {
+  margin: 5px 0;
+}
+
+.firstname,
+.lastname {
+  font-weight: bold;
+}
+
+.email {
+  font-style: italic;
+  color: red;
+}
+
+/* Styles for blog details section */
+.blog-details {
+  margin-bottom: 20px;
+}
+
+.blog-title {
+  font-size: 28px;
+  margin-bottom: 3rem;
+  margin-top: 3rem;
+
+}
+
+.blog-summary {
+  font-style: italic;
+  margin-bottom: 0.5rem;
+  margin-top: 0.5rem;
+  font-size: 20px;
+
+}
+
+.blog-content {
+  line-height: 1.6;
+  margin-top: 3rem;
+  font-size: 20px;
+  text-align: justify;
+}

@@ -129,7 +129,9 @@ const delBlog = async(req,res)=>{
 const seeDetails = async(req,res)=>{
   try {
     const {blogId} = req.params;
-    const details = await blogAdded.findById({blogId})
+    
+    const details = await blogAdded.findById({_id:blogId}).populate("user")
+    
     if(details){
       return res.status(200).json({success:true,details})
     }else{

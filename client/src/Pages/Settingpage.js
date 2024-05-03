@@ -5,12 +5,14 @@ import Navbar from '../Components/Navbar';
 
 const Settingpage = () => {
 
+  const userToken = localStorage.getItem('blogUserToken');
+
 
   const handleLogout = () => {
     const confirmLogout = window.confirm('Are you sure you want to logout?');
     if (confirmLogout) {
       localStorage.removeItem('blogUserToken');
-      window.location.href = '/login';
+      window.location.reload();
     }
   };
   
@@ -20,11 +22,14 @@ const Settingpage = () => {
       <Navbar />
       <div className="setting-page">
       <h1>Settings</h1>
-      <div className="setting-options">
-        <Link to="/update-profile" className="setting-link">Update Profile</Link>
-        <button className="logout-btn" onClick={handleLogout}>Logout</button>
-        
-      </div>
+      {userToken ? (
+              <div className="setting-options">
+              <Link to="/update-profile" className="setting-link">Update Profile</Link>
+              <button className="logout-btn" onClick={handleLogout}>Logout</button>
+            </div>
+            ):(
+              <h1>Please Login to continue...</h1>
+            )}
     </div>
     </>
     
