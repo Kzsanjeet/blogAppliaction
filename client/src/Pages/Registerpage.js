@@ -32,29 +32,34 @@ const Registerpage = () => {
   const handleRegister = async (e) => {
     e.preventDefault();
     const userData = {
-      firstName: firstName,
-      lastName: lastName,
+      firstname: firstName,
+      lastname: lastName,
       email: email,
       password: password,
     };
-    try {
-      const response = await fetch('http://localhost:4000/register', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(userData),
-      });
-      const data = await response.json();
-      console.log(data);
-      alert('User registered successfully');
-      setFirstName('');
-      setLastName('');
-      setEmail('');
-      setPassword('');
-      setConfirmPassword('');
-    } catch (error) {
-      console.error('Error:', error);
+
+    if(confirmPassword === password){
+      try {
+        const response = await fetch('http://localhost:4000/register', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(userData),
+        });
+        const data = await response.json();
+        console.log(data);
+        alert('User registered successfully');
+        setFirstName('');
+        setLastName('');
+        setEmail('');
+        setPassword('');
+        setConfirmPassword('');
+      } catch (error) {
+        console.error('Error:', error);
+      }
+    }else{
+      alert("Invalid password")
     }
   }
 

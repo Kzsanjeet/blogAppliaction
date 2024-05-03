@@ -1,11 +1,20 @@
 const express = require("express")
 const app = express()
+const connecDb = require("./dbConnection")
+const cors = require("cors")
+const router = require("../server/route/router")
+
+require("dotenv").config()
+
+connecDb()
 
 
 PORT = 4000
 
 // middleware
+app.use(cors())
 app.use(express.json())
+app.use("/",router)
 
 
 app.get("/",(req,res)=>{

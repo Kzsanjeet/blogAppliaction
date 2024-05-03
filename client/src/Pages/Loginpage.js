@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import './Loginpage.css'
-import { Link, redirect } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 
 const Loginpage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
+  const [redirectPage, setRedirectPage]= useState(false)
 
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
@@ -33,14 +34,22 @@ const Loginpage = () => {
       const data = await response.json();
 
       //using localstorage (beta)
+      if(data.success){
+        //using localstorage (beta)
         localStorage.setItem('blogUserToken', data.token);
-        redirect('/');
+        setRedirectPage(true)
+    }
 
       console.log(data);
     } catch (error) {
       console.log(error);
+      setRedirectPage(false)
     }
     
+}
+
+  if(redirectPage){
+   return <Navigate to={'/'}/>
   }
 
   
