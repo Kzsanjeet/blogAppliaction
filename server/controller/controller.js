@@ -86,6 +86,26 @@ const allBlog = async(req,res)=>{
   }
 }
 
-// const userInfo = 
+const userInfo = async (req, res) => {
+  try {
+    const token = req.headers.authorization.split(" ")[1]
+    if(!token){
+        return res.status(403).json({message:"Token is required"})
+    }
+    const decode = jwt.verify(token, process.env.SECRET_KEY);
+    console.log(decode)
+    if (!decode) {
+      return res.status(401).json({ success: false, message: "Invalid or expired token" });
+    }
 
-module.exports = {registerFunc,loginUser,addBlog,allBlog}
+    const getUser = await User.findById(decode.id);
+    if (getUser) {
+      return res.status(200).json({ success: true, message: "Success", user: getUser });
+    } else {
+      return res.status(404).json({ success: false, message: "User not found" });
+    }
+  } catch (error) {
+    return res.status(500).json({ success: false, message: "Internal server error", error: error.message });
+  }
+};
+module.exports = {registerFunc,loginUser,addBlog,allBlog,userInfo}

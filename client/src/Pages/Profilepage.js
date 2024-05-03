@@ -6,24 +6,27 @@ function Profilepage() {
   const [userInfo, setUserInfo] = useState(null);
 
   // Fetch user information from an API endpoint
-  useEffect(() => {
-    const token = localStorage.getItem('blogUserToken');
-    fetch('http://localhost:4000/user-profile', {
-      method: 'GET',
+  // Fetch user information from an API endpoint
+ const fetchUserInfo = async () => {
+  try {
+    const response = await fetch('http://localhost:4000/user-info', {
       headers: {
-        'Authorization': `Bearer ${token}`
-      }
-    })
-      .then(response => response.json())
-      .then(data => {
-        if (data.success) {
-          setUserInfo(data.user);
-        } else {
-          console.error('Failed to fetch user information:', data.message);
-        }
-      })
-      .catch(error => console.error('Error fetching user information:', error));
-  }, []);
+        Authorization: `Bearer ${localStorage.getItem('blogUserToken')}`,
+      },
+    });
+
+    const data = await response.json();
+    console.log(data)
+    setUserInfo(data);
+  }
+  catch (error) {
+    console.log(error);
+  }
+}
+
+useEffect(() => {
+  fetchUserInfo();
+},[]);
 
   return (
     <>
