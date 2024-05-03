@@ -4,11 +4,19 @@ import { useParams } from 'react-router-dom'
 
 const SpecificBlog = () => {
     const [blog, setBlog] = useState(null)
-    const {id} = useParams()
+    const blogId = useParams()
+    console.log(blogId.id)
     
     const fetchBlog = async () => {
         try {
-            const response = await fetch(`http://localhost:4000/blog/${id}`)
+            const response = await fetch(`http://localhost:4000/blog/${blogId.id}`,{
+                method: 'GET',
+                headers: {
+              'Content-Type': 'application/json',
+            }
+         
+        },
+            )
             const data = await response.json()
             setBlog(data)
         } catch (error) {

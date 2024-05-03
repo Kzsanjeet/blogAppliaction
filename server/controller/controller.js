@@ -126,6 +126,21 @@ const delBlog = async(req,res)=>{
   }
 }
 
+const seeDetails = async(req,res)=>{
+  try {
+    const {blogId} = req.params;
+    const details = await blogAdded.findById({blogId})
+    if(details){
+      return res.status(200).json({success:true,details})
+    }else{
+      return res.status(404).json({success:false,messaege:"unable to show data"})
+    }
+  } catch (error) {
+    res.status(400).json({messaege:"err",error})
+  }
+
+}
+
 const userInfo = async (req, res) => {
   try {
     // console.log("hello")
@@ -151,4 +166,4 @@ const userInfo = async (req, res) => {
   }
 };
 
-module.exports = {registerFunc,loginUser,addBlog,allBlog,userInfo,editBlog,delBlog}                  
+module.exports = {registerFunc,loginUser,addBlog,allBlog,userInfo,editBlog,delBlog,seeDetails}                  
