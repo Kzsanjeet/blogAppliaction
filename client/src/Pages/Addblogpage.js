@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Navbar from '../Components/Navbar';
 import './Addblogpage.css'; 
 
@@ -6,6 +6,8 @@ const Addblogpage = () => {
   const [title, setTitle] = useState('');
   const [summary, setSummary] = useState('');
   const [content, setContent] = useState('');
+  const [userId,setUserId] = useState(null);
+
 
   const handleTitleChange = (e) => {
     setTitle(e.target.value);
@@ -24,7 +26,8 @@ const Addblogpage = () => {
     const blogData = {
       title: title,
       summary: summary,
-      content: content
+      content: content,
+      userId:userId
     };
     try {
       const response = await fetch('http://localhost:4000/add-blog', {
@@ -44,6 +47,32 @@ const Addblogpage = () => {
       console.error('Error:', error);
     }
   };
+
+
+
+ const fetchUserInfo = async () => {
+  try {
+    const response = await fetch('http://localhost:4000/user-info', {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('blogUserToken')}`,
+      },
+    });
+
+    const data = await response.json();
+    if(data.success){
+      
+      setUserId(data.user._id);
+    }
+    console.log(data.user._id)
+  }
+  catch (error) {
+    console.log(error);
+  }
+}
+
+useEffect(() => {
+  fetchUserInfo();
+},[]);
 
   return (
     <>

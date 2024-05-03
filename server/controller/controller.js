@@ -59,11 +59,12 @@ const registerFunc = async (req, res) => {
 
 const addBlog = async(req,res)=>{
     try{
-        const{title,summary,content}= req.body
+        const{title,summary,content,userId}= req.body
         const createBlog = await blogAdded.create({
             blogTitle:title,
             blogSummary:summary,
-            blogContent:content
+            blogContent:content,
+            user:userId
         })
       if(createBlog){
             return res.status(200).json({success:true,messaege:"blog created sucessfully"})
@@ -79,7 +80,7 @@ const addBlog = async(req,res)=>{
 
 const allBlog = async(req,res)=>{
   try {
-    const getBlogs =  await blogAdded.find({})
+    const getBlogs =  await blogAdded.find({}).populate("user")
     res.status(200).json({success:true,getBlogs})
   } catch (error) {
     res.status(400).json({sucess:false ,messaege:"err",err})
@@ -88,12 +89,14 @@ const allBlog = async(req,res)=>{
 
 const userInfo = async (req, res) => {
   try {
+    // console.log("hello")
     const token = req.headers.authorization.split(" ")[1]
     if(!token){
         return res.status(403).json({message:"Token is required"})
     }
+    // console.log(token)
     const decode = jwt.verify(token, process.env.SECRET_KEY);
-    console.log(decode)
+    // console.log(decode)
     if (!decode) {
       return res.status(401).json({ success: false, message: "Invalid or expired token" });
     }
