@@ -86,27 +86,29 @@ const allBlog = async(req,res)=>{
     res.status(400).json({sucess:false ,messaege:"err",err})
   }
 }
-
 const editBlog = async (req, res) => {
   try {
     const { blogId } = req.params;
     const { title, summary, content } = req.body;
-    
-    const edit = await blogAdded.findByIdAndUpdate(blogId, { 
-      title, 
-      summary, 
-      content 
-    }, { new: true }); // { new: true } ensures that the updated document is returned
-    
-    if (!edit) {
-      return res.status(404).json({ success: false, message: "Unable to edit the blog" });
-    } else {
-      return res.status(200).json({ success: true, message: "Updated successfully", data: edit });
+
+
+    // Update the blog
+    const updatedBlog = await blogAdded.findByIdAndUpdate(blogId, {
+      blogTitle: title,
+      blogSummary: summary,
+      blogContent: content, 
+    }, { new: true });
+    if (!updatedBlog) {
+      return res.status(404).json({ success: false, message: "Blog not found or unable to edit" });
     }
+
+    return res.status(200).json({ success: true, message: "Blog updated successfully", data: updatedBlog });
   } catch (error) {
-    return res.status(400).json({ success: false, message: "Error", error });
+    console.error("Error editing blog:", error);
+    return res.status(500).json({ success: false, message: "Internal server error" });
   }
 };
+
 
 
 const delBlog = async(req,res)=>{
@@ -115,12 +117,12 @@ const delBlog = async(req,res)=>{
 
     const del = await blogAdded.deleteOne({_id:blogId});
     if(del){
-      return res.status(200).json({sucess:true,messaege:"Deleted sucessfully"})
+      return res.status(200).json({success:true,messaege:"Deleted sucessfully"})
     }else{
-      return res.status(404).json({sucess:false,messaege:"Unable to delete"})
+      return res.status(404).json({success:false,messaege:"Unable to delete"})
     }
     } catch (error) {
-      return res.status(400).json({sucess:false,messaege:"err",error})
+      return res.status(400).json({success:false,messaege:"err",error})
   }
 }
 

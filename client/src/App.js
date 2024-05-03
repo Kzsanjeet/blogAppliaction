@@ -7,6 +7,7 @@ import Editblogpage from './Pages/Editblogpage';
 import Settingpage from './Pages/Settingpage';
 import Loginpage from './Pages/Loginpage';
 import Registerpage from './Pages/Registerpage';
+import SpecificBlog from './Pages/SpecificBlog';
 
 function App() {
   return (
@@ -17,7 +18,8 @@ function App() {
           <Route path='/profile' element={<Profilepage />} />
           <Route path='/addblog' element={<Addblogpage />} />
           <Route path='/setting' element={<Settingpage/>} />
-          <Route path='/editblog/:id' element={<Editblogpage />} />
+          <Route path='/edit-blog/:id' element={<Editblogpage />} />
+          <Route path='/specific-blog/:id' element={<SpecificBlog />} />
 
           <Route path='/login' element={<Loginpage/>} />
           <Route path='/register' element={<Registerpage/>} />

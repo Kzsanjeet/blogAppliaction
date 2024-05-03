@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Navbar from '../Components/Navbar';
 import './Homepage.css';
+import { Link } from 'react-router-dom';
 
 function Homepage() {
   const [allBlogs, setAllBlogs] = useState([]);
@@ -56,6 +57,31 @@ function Homepage() {
     getAllBlog();
   }, []);
 
+  const deletePost = async (id) => {
+    const confirmDelete = window.confirm('Are you sure you want to delete this blog?');
+    if (confirmDelete) {
+      try {
+        const response = await fetch(`http://localhost:4000/del-blog/${id}`, {
+          method: 'DELETE',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        });
+        const data = await response.json();
+        console.log(data);
+        if (data.success) {
+          getAllBlog();
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  }
+
+  const redirectPage = (id) => {
+    window.location.href = `specific-blog/${id}`;
+  }
+
   return (
     <div>
       <Navbar />
@@ -78,12 +104,17 @@ function Homepage() {
                     </div>
                     {allBlogs && blog.user._id === userId ? (
                       <div class="blog-actions">
-                        <button class="edit-btn">Edit</button>
-                        <button class="delete-btn">Delete</button>
+                          <Link to={`/edit-blog/${blog._id}`}>
+                            <button class="edit-btn">
+                                Edit
+                              </button>
+                            </Link>
+                        <button class="delete-btn" onClick={()=>deletePost(blog._id)}>Delete</button>
                       </div>
                     ):null}
                     <p><strong>Summary:</strong> {blog.blogSummary}</p>
-                    <p><strong>Description:</strong> {blog.blogContent}</p>
+                    <button onClick={()=>redirectPage(blog._id)}>See More</button>
+                    {/* <p><strong>Description:</strong> {blog.blogContent}</p> */}
                   </li>
                 ))}
               </ul>

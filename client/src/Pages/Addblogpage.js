@@ -1,12 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import Navbar from '../Components/Navbar';
 import './Addblogpage.css'; 
+import { Navigate } from 'react-router-dom';
 
 const Addblogpage = () => {
   const [title, setTitle] = useState('');
   const [summary, setSummary] = useState('');
   const [content, setContent] = useState('');
   const [userId,setUserId] = useState(null);
+
+  const token = localStorage.getItem('blogUserToken');
+
 
 
   const handleTitleChange = (e) => {
@@ -38,15 +42,21 @@ const Addblogpage = () => {
         body: JSON.stringify(blogData)
       });
       const data = await response.json();
-      console.log(data);
-      alert('Blog added successfully');
-      setTitle('');
-      setSummary('');
-      setContent('');
+      if(data.success){
+        // console.log(data);
+        alert('Blog added successfully');
+        setTitle('');
+        setSummary('');
+        setContent('');
+        //for redirection
+        
+      }
+
     } catch (error) {
       console.error('Error:', error);
     }
   };
+
 
 
 
@@ -74,11 +84,15 @@ useEffect(() => {
   fetchUserInfo();
 },[]);
 
+
+
+
   return (
     <>
       <Navbar />
       <div className="add-blog-page">
-        <div className="add-blog-container">
+        {token ? (
+          <div className="add-blog-container">
           <h1>Add Blog</h1>
           <form className="add-blog-form" onSubmit={handleSubmit}>
             <div className="form-group">
@@ -96,6 +110,9 @@ useEffect(() => {
             <button type="submit" className="add-blog-btn">Add Blog</button>
           </form>
         </div>
+        ) : (
+          <h1>Please login to add a blog</h1>
+        )}
       </div>
     </>
   );
