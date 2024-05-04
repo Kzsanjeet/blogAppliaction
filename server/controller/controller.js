@@ -146,6 +146,7 @@ const seeDetails = async(req,res)=>{
 const userBlog = async(req,res)=>{
   try {
     const {userId} = req.params;
+    console.log(userId)
     const getblog = await blogAdded.find({user:userId})
     if(!blog){
       return res.status(404).json({success:false, messaege:"Unable to show the blogs"})

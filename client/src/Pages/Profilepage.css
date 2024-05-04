@@ -1,34 +1,73 @@
+/* Main container */
+.main-div {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+/* Profile section */
 .profile-page {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 20px;
-    background-color: #f9f9f9;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  width: 45%;
+  background-color: #f8f9fa;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.profile-page h1 {
+  font-size: 24px;
+  margin-bottom: 15px;
+}
+
+.user-info {
+  margin-bottom: 20px;
+}
+
+.user-info p {
+  margin-bottom: 8px;
+}
+
+/* Loading message */
+.loading-message {
+  font-style: italic;
+  color: #888;
+}
+
+/* Profile blogs section */
+.profile-blogs {
+  width: 50%;
+}
+
+.blog-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+}
+
+.blog {
+  background-color: #fff;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.blog h3 {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.blog p {
+  margin-bottom: 8px;
+}
+
+/* Responsive layout */
+@media (max-width: 768px) {
+  .main-div {
+    flex-direction: column;
   }
-  
-  .profile-page h1 {
-    color: #333;
-    margin-bottom: 20px;
+
+  .profile-page,
+  .profile-blogs {
+    width: 100%;
   }
-  
-  .user-info {
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    padding: 20px;
-    background-color: #fff;
-  }
-  
-  .user-info p {
-    margin-bottom: 10px;
-  }
-  
-  .user-info p strong {
-    font-weight: bold;
-    margin-right: 5px;
-  }
-  
-  .loading-message {
-    color: #666;
-  }
-  
+}
