@@ -143,6 +143,20 @@ const seeDetails = async(req,res)=>{
 
 }
 
+const userBlog = async(req,res)=>{
+  try {
+    const {userId} = req.params;
+    const getblog = await blogAdded.find({user:userId})
+    if(!blog){
+      return res.status(404).json({success:false, messaege:"Unable to show the blogs"})
+    }else{
+      return res.status(200).json({success:true, getblog})
+    }
+  } catch (error) {
+    return res.status(400).json({success:false,messaege:"error",error})
+  }
+}
+
 const userInfo = async (req, res) => {
   try {
     // console.log("hello")
@@ -168,4 +182,4 @@ const userInfo = async (req, res) => {
   }
 };
 
-module.exports = {registerFunc,loginUser,addBlog,allBlog,userInfo,editBlog,delBlog,seeDetails}                  
+module.exports = {registerFunc,loginUser,addBlog,allBlog,userInfo,editBlog,delBlog,seeDetails,userBlog}                  
