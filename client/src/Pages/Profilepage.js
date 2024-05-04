@@ -36,7 +36,7 @@ function Profilepage() {
 
       const data = await response.json();
       if (data.success) {
-        setBlogs(data.blogs);
+        setBlogs(data.getblog);
       }
     } catch (error) {
       console.log(error);
@@ -70,8 +70,8 @@ function Profilepage() {
             <div className="blog-list">
               {blogs.map((blog) => (
                 <div key={blog._id} className="blog">
-                  <h3>{blog.title}</h3>
-                  <p>{blog.content}</p>
+                  <h3>{blog.blogTitle}</h3>
+                  <p>{blog.blogContent}</p>
                   <p>By: {blog.user.firstname} {blog.user.lastname}</p>
                 </div>
               ))}

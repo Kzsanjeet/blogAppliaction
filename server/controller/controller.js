@@ -145,10 +145,17 @@ const seeDetails = async(req,res)=>{
 
 const userBlog = async(req,res)=>{
   try {
-    const {userId} = req.params;
-    console.log(userId)
-    const getblog = await blogAdded.find({user:userId})
-    if(!blog){
+    const token = req.headers.authorization.split(" ")[1];
+    if(!token){
+      return res.status(404).json({success:false,messaege:"token not found"})
+    }
+    const decode = jwt.verify(token,process.env.SECRET_KEY)
+    console.log(decode)
+    if(!decode){
+      res.status(404).json({success:false,messaege:"unable to decode"})
+    }
+    const getblog = await blogAdded.find({user:decode.id})
+    if(!getblog){
       return res.status(404).json({success:false, messaege:"Unable to show the blogs"})
     }else{
       return res.status(200).json({success:true, getblog})

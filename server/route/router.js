@@ -10,6 +10,6 @@ router.route("/user-info").get(userInfo);
 router.route("/edit-blog/:blogId").patch(editBlog); // Note: I added ":blogId" as a route parameter
 router.route("/del-blog/:blogId").delete(delBlog)
 router.route("/blog/:blogId").get(seeDetails)
-router.route("/get-blog/:userId").get(userBlog)
+router.route("/user-blog").get(userBlog)
 
 module.exports = router;
