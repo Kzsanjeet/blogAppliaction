@@ -1,17 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { Link, Navigate } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import './Navbar.css'; 
 
 const Navbar = () => {
-
   const userToken = localStorage.getItem('blogUserToken');
-
-
   const [userInfo, setUserInfo] = useState([]);
-
-
-
-
+  
   const fetchUserInfo = async () => {
     try {
       const response = await fetch('http://localhost:4000/user-info', {
@@ -19,47 +13,44 @@ const Navbar = () => {
           Authorization: `Bearer ${localStorage.getItem('blogUserToken')}`,
         },
       });
-  
       const data = await response.json();
-      if(data.success){
+      if (data.success) {
         setUserInfo(data.user);
       }
-      // console.log(data.user._id)
-    }
-    catch (error) {
+    } catch (error) {
       console.log(error);
     }
   }
+
   useEffect(() => {
     fetchUserInfo();
-  },[]);
+  }, []);
 
-  const logoutHandler = ()=>{
-    //removing the token
+  const logoutHandler = () => {
     const confirmLogout = window.confirm("Are you sure want to logout?")
-    if(confirmLogout){
-      localStorage.removeItem('blogUserToken')
-      window.location.reload();
-      
+    if (confirmLogout) {
+      localStorage.removeItem('blogUserToken');
     }
   }
- 
 
   return (
     <nav className="navbar">
       <div className="logo">
-        <Link to="/">yourThoughts</Link>
+        <NavLink to="/" activeClassName="active">yourThoughts</NavLink>
         {userInfo ? (
           <span className='identity'>({userInfo.firstname} {userInfo.lastname})</span>
-        ):null}
+        ) : null}
       </div>
       <ul className="nav-links">
-        <li><Link to="/">Home</Link></li>
-        <li><Link to="/profile">Profile</Link></li>
-        <li><Link to="/addblog">Add Blog</Link></li>
-        <li><Link to="/setting">Settings</Link></li>
-        {userToken ? <li><button className='logout' onClick={()=>logoutHandler()}>Logout</button></li> : <li><Link to="/login">Login</Link></li>}
-  
+        <li><NavLink exact to="/" activeClassName="active">Home</NavLink></li>
+        <li><NavLink to="/profile" activeClassName="active">Profile</NavLink></li>
+        <li><NavLink to="/addblog" activeClassName="active">Add Blog</NavLink></li>
+        <li><NavLink to="/setting" activeClassName="active">Settings</NavLink></li>
+        {userToken ? (
+          <li><button className='logout' onClick={logoutHandler}>Logout</button></li>
+        ) : (
+          <li><NavLink to="/login" activeClassName="active">Login</NavLink></li>
+        )}
       </ul>
     </nav>
   );

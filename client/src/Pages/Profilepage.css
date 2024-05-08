@@ -1,73 +1,82 @@
-/* Main container */
-.main-div {
-  display: flex;
-  justify-content: space-between;
-  gap: 20px;
+/* Navbar */
+.navbar {
+  background-color: #333;
+  color: #fff;
+  padding: 10px;
 }
 
-/* Profile section */
-.profile-page {
-  width: 45%;
-  background-color: #f8f9fa;
+/* Main Container */
+.main-div {
+  max-width: 1200px;
+  margin: 3rem auto;
   padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Profile Page Section */
+.profile-page {
+  margin-bottom: 20px;
 }
 
 .profile-page h1 {
   font-size: 24px;
-  margin-bottom: 15px;
+  margin-bottom: 10px;
 }
 
 .user-info {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 10px;
   margin-bottom: 20px;
 }
 
 .user-info p {
-  margin-bottom: 8px;
+  margin-bottom: 5px;
 }
 
-/* Loading message */
-.loading-message {
-  font-style: italic;
-  color: #888;
-}
-
-/* Profile blogs section */
+/* Profile Blogs Section */
 .profile-blogs {
-  width: 50%;
+  margin-bottom: 20px;
 }
 
 .blog-list {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 20px;
+  /* display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); */
+  display: flex;
+  flex-direction: column;
+  grid-gap: 20px;
 }
 
 .blog {
-  background-color: #fff;
-  padding: 15px;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 10px;
+  width: 100%; /* Ensure each blog takes up the entire width */
 }
 
 .blog h3 {
-  font-size: 18px;
-  margin-bottom: 10px;
+  font-size: 20px;
+  margin-bottom: 5px;
 }
 
 .blog p {
-  margin-bottom: 8px;
+  margin-bottom: 10px;
 }
 
-/* Responsive layout */
-@media (max-width: 768px) {
-  .main-div {
-    flex-direction: column;
-  }
+.see-details {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 8px 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
 
-  .profile-page,
-  .profile-blogs {
-    width: 100%;
-  }
+.see-details:hover {
+  background-color: #0056b3;
+}
+
+.loading-message {
+  font-style: italic;
+  color: #888;
 }
