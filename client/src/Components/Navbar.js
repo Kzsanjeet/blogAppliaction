@@ -2,13 +2,15 @@ import React, { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import './Navbar.css'; 
 
+const apiUrl = 'http://localhost:4000';
+
 const Navbar = () => {
   const userToken = localStorage.getItem('blogUserToken');
   const [userInfo, setUserInfo] = useState([]);
   
   const fetchUserInfo = async () => {
     try {
-      const response = await fetch('http://localhost:4000/user-info', {
+      const response = await fetch(`${apiUrl}/user-info `, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('blogUserToken')}`,
         },
