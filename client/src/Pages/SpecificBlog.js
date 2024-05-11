@@ -8,10 +8,12 @@ const SpecificBlog = () => {
     const blogId = useParams()
 
     const token = localStorage.getItem('blogUserToken')
+const apiUrl = 'http://localhost:4000';
+
     
     const fetchBlog = async () => {
         try {
-            const response = await fetch(`http://localhost:4000/blog/${blogId.id}`,{
+            const response = await fetch(`${apiUrl}/blog/${blogId.id}`,{
                 method: 'GET',
                 headers: {
               'Content-Type': 'application/json',

@@ -9,6 +9,9 @@ const Loginpage = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [redirectPage, setRedirectPage]= useState(false)
 
+const apiUrl = 'http://localhost:4000';
+
+
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
   };
@@ -24,7 +27,7 @@ const Loginpage = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch('http://localhost:4000/login', {
+      const response = await fetch(`${apiUrl}/login`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

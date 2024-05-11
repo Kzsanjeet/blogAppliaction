@@ -36,11 +36,13 @@ function Homepage() {
     fetchUserInfo();
   },[]);
 
+const apiUrl = 'http://localhost:4000';
+
 
   const getAllBlog = async () => {
     try {
       setLoading(true);
-      const response = await fetch("http://localhost:4000/all-blog");
+      const response = await fetch(`${apiUrl}/all-blog`);
       const result = await response.json();
       if (result.success) {
         setAllBlogs(result.getBlogs); // Assuming result.data contains the array of blogs
@@ -63,7 +65,7 @@ function Homepage() {
     const confirmDelete = window.confirm('Are you sure you want to delete this blog?');
     if (confirmDelete) {
       try {
-        const response = await fetch(`http://localhost:4000/del-blog/${id}`, {
+        const response = await fetch(`${apiUrl}/del-blog/${id}`, {
           method: 'DELETE',
           headers: {
             'Content-Type': 'application/json',

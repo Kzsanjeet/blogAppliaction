@@ -11,6 +11,8 @@ const Addblogpage = () => {
 
   const token = localStorage.getItem('blogUserToken');
 
+const apiUrl = 'http://localhost:4000';
+
 
 
   const handleTitleChange = (e) => {
@@ -34,7 +36,7 @@ const Addblogpage = () => {
       userId:userId
     };
     try {
-      const response = await fetch('http://localhost:4000/add-blog', {
+      const response = await fetch(`${apiUrl}/add-blog`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -62,7 +64,7 @@ const Addblogpage = () => {
 
  const fetchUserInfo = async () => {
   try {
-    const response = await fetch('http://localhost:4000/user-info', {
+    const response = await fetch(`${apiUrl}/user-info`, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem('blogUserToken')}`,
       },
