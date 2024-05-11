@@ -9,6 +9,9 @@ const Registerpage = () => {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
 
+const apiUrl = 'http://localhost:4000';
+
+
   const handleFirstNameChange = (e) => {
     setFirstName(e.target.value);
   };
@@ -40,7 +43,7 @@ const Registerpage = () => {
 
     if(confirmPassword === password){
       try {
-        const response = await fetch('http://localhost:4000/register', {
+        const response = await fetch(`${apiUrl}/register`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

@@ -8,11 +8,14 @@ const [userInfo, setUserInfo] = useState(null);
 
 const [blogs, setBlogs] = useState([]);
 
+const apiUrl = 'http://localhost:4000';
+
+
 
 // Fetch user information from an API endpoint
 const fetchUserInfo = async () => {
   try {
-    const response = await fetch('http://localhost:4000/user-info', {
+    const response = await fetch(`${apiUrl}/user-info`, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem('blogUserToken')}`,
       },
@@ -29,7 +32,7 @@ const fetchUserInfo = async () => {
 
 const fetchBlogs = async () => {
   try {
-    const response = await fetch('http://localhost:4000/user-blog', {
+    const response = await fetch(`${apiUrl}/user-blog`, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem('blogUserToken')}`,
       },

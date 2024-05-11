@@ -11,6 +11,9 @@ const Editblogpage = () => {
 
   const token = localStorage.getItem('blogUserToken');
 
+  const apiUrl = 'http://localhost:4000';
+
+
   const blogId = useParams();
   // console.log(blogId)
 
@@ -34,7 +37,7 @@ const Editblogpage = () => {
       content: content,
     };
     try {
-      const response = await fetch(`http://localhost:4000/edit-blog/${blogId.id}`  , {
+      const response = await fetch(`${apiUrl}/edit-blog/${blogId.id}`  , {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
@@ -58,7 +61,7 @@ const Editblogpage = () => {
 
  const fetchUserInfo = async () => {
   try {
-    const response = await fetch('http://localhost:4000/user-info', {
+    const response = await fetch(`${apiUrl}/user-info`, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem('blogUserToken')}`,
       },
